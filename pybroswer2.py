@@ -23,14 +23,16 @@ def clear():
 
 def label(text):
 	lab_en = tk.Label(frame1, text=text)
-	lab_en.pack(side="left")
+	lab_en.pack(side="top")
 	return lab_en
 
 def entry(text="H:\\"):
 	"Visualize an entry"
 	en = tk.Entry(frame1)
 	en.insert(0, text)
-	en.pack()
+	en["bg"] = "gold"
+	en.pack(fill="x")
+	en.bind("<Return>", lambda x:searchfiles('.png', en.get()))
 	en.focus()
 	return en
 
@@ -61,9 +63,9 @@ def main():
 	en = entry()
 	bt1 = button("Search", lambda:searchfiles('.png', en.get()))
 	bt2 = button("Clear", clear)
-	frame1.pack()
+	frame1.pack(fill="x")
 	lbx = listbox()
-	frame2.pack()
+	frame2.pack(fill="both", expand=1)
 	root.mainloop()
 
 
