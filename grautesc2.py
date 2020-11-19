@@ -71,6 +71,7 @@ def start():
         # sys.exit()
 
 root = tk.Tk()
+root.title("GRAUTESC Grab text to audio")
 root.geometry("400x200")
 but = tk.Button(root, text="GRAB GET IMAGE", command=start, width=20,height=10, bg="gold")
 but.pack()
