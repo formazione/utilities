@@ -33,6 +33,9 @@ def save(im):
 
 trycount = 0
 def ocr():
+    global trycount
+
+
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
     text = pytesseract.image_to_string(r'im.png')
     print(text)

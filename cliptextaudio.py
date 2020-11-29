@@ -8,15 +8,26 @@ import os
 def create_mp3(text, lang="en"):
     s = gTTS(text, lang=lang)
     print("Wait a second...")
-    time.sleep(3)
+    time.sleep(5)
     s.save(f"text.mp3")
     os.system("text.mp3")
 
+trycount = 0
 def clip():
+	global trycount
+
+
 	win32clipboard.OpenClipboard()
 	data = win32clipboard.GetClipboardData()
 	win32clipboard.CloseClipboard()
-	create_mp3(data)
+	try:
+		create_mp3(data)
+	except:
+		trycount += 1
+		if trycount < 3:
+		    ocr()
+	else:
+	    print("Some problems with connection maybe")
 
 root = tk.Tk()
 root.title("Select the text, press crtl + c then press the button")

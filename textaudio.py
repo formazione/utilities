@@ -1,5 +1,5 @@
 # grabscreen.py
-
+import win32clipboard
 import pyscreenshot as ImageGrab
 import os
 from pynput.mouse import Listener
@@ -33,6 +33,9 @@ def save(im):
 
 trycount = 0
 def ocr():
+    global trycount
+
+
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
     text = pytesseract.image_to_string(r'im.png')
     print(text)
@@ -44,6 +47,7 @@ def ocr():
             ocr()
         else:
             print("Some problems with connection maybe")
+            trycount2 = 0
 
 def create_mp3(text, lang="en"):
     s = gTTS(text, lang=lang)
@@ -51,6 +55,25 @@ def create_mp3(text, lang="en"):
     time.sleep(3)
     s.save(f"text.mp3")
     os.system("text.mp3")
+
+trycount2 = 0
+def clip():
+    global trycount2
+
+
+    win32clipboard.OpenClipboard()
+    data = win32clipboard.GetClipboardData()
+    win32clipboard.CloseClipboard()
+    try:
+        create_mp3(data)
+    except:
+        trycount2 += 1
+        if trycount2 < 3:
+            ocr()
+    else:
+        print("Some problems with connection maybe")
+        trycount2 = 0
+
 
 click1 = 0
 x1 = 0
@@ -79,9 +102,11 @@ def start():
         # sys.exit()
 
 root = tk.Tk()
-root.title("GRAUTESC Grab text to audio")
-root.geometry("400x200")
-but = tk.Button(root, text="GRAB GET IMAGE", command=start, width=20,height=10, bg="gold")
+root.title("GRAUTESC 2 - Text to Audio APP")
+root.geometry("200x200")
+but = tk.Button(root, text="GRAB GET IMAGE", command=start, width=20,height=5, bg="gold")
 but.pack()
+butclip = tk.Button(root, text="Get audio from clipboard", command=clip, width=20,height=5, bg="gold")
+butclip.pack()
 
 root.mainloop()

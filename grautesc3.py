@@ -31,26 +31,22 @@ def save(im):
     im.save('im.png')
     os.startfile('im.png')
 
-trycount = 0
 def ocr():
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
     text = pytesseract.image_to_string(r'im.png')
     print(text)
-    try:
-        create_mp3(text)
-    except:
-        trycount += 1
-        if trycount < 3:
-            ocr()
-        else:
-            print("Some problems with connection maybe")
+    create_mp3(text)
 
 def create_mp3(text, lang="en"):
-    s = gTTS(text, lang=lang)
-    print("Wait a second...")
-    time.sleep(3)
-    s.save(f"text.mp3")
-    os.system("text.mp3")
+    try:
+        s = gTTS(text, lang=lang)
+        print("Wait a second...")
+        time.sleep(3)
+        s.save(f"text.mp3")
+        os.system("text.mp3")
+        root.destroy()
+    except:
+        start()
 
 click1 = 0
 x1 = 0
@@ -66,11 +62,13 @@ def on_click(x, y, button, pressed):
         else:
             grab(x1, y1, x, y)
             listener.stop()
+            click1 = 0
+ 
             sys.exit()
+
 def start():
     global listener
 
-    root.destroy()
     print("Click once on top left and once on bottom right")
     # with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
     with Listener(on_click=on_click) as listener:
@@ -79,7 +77,6 @@ def start():
         # sys.exit()
 
 root = tk.Tk()
-root.title("GRAUTESC Grab text to audio")
 root.geometry("400x200")
 but = tk.Button(root, text="GRAB GET IMAGE", command=start, width=20,height=10, bg="gold")
 but.pack()

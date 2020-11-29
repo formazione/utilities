@@ -1,0 +1,105 @@
+A little <strong>script</strong> to make an html table out of <strong>pandas</strong>. I made this type of stuff before, but I tried a different approach that maybe could bring to something more.
+
+<a href="https://github.com/formazione/utilities">Github repository</a>
+<pre class="lang:default decode:true">import pandas as pd
+import os
+
+
+table_class = "rwd-table"
+
+html = """&lt;style&gt;
+@import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
+.rwd-table {
+  margin: 1em 0;
+	border: 1px;
+  min-width: 300px;
+}
+.rwd-table tr {border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; } 
+.rwd-table th {display: none; } 
+.rwd-table td {border:1; display: block; } 
+.rwd-table td:first-child {padding-top: .5em; } 
+.rwd-table td:last-child {padding-bottom: .5em; } 
+.rwd-table td:before {content: attr(data-th) ": "; font-weight: bold; width: 6.5em; display: inline-block; } 
+@media (min-width: 480px) {
+	.rwd-table td:before {display: none; } 
+	} .rwd-table th, .rwd-table td {text-align: left; 
+	} 
+@media (min-width: 480px) {
+	.rwd-table th, .rwd-table td {
+	display: table-cell; padding: .25em .5em; }
+	.rwd-table th:first-child, 
+	.rwd-table td:first-child {padding-left: 0; } 
+	.rwd-table th:last-child, .rwd-table td:last-child {padding-right: 0; } } 
+	h1 {font-weight: normal; letter-spacing: -1px; color: #34495E; } 
+	.rwd-table {background: #34495E; color: #fff; border-radius: .4em; overflow: hidden; } 
+	.rwd-table tr {border-color: #46637f; } 
+	.rwd-table th, 
+	.rwd-table td {margin: .5em 1em; } @media (min-width: 480px) {
+	.rwd-table th, .rwd-table td {padding: 1em !important; } } 
+	.rwd-table th, .rwd-table td:before {color: #dd5; } &lt;/style&gt;
+
+&lt;script&gt;
+  window.console = window.console || function(t) {};
+&lt;/script&gt;
+&lt;script&gt;
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+&lt;/script&gt;"""
+
+
+
+# df = pd.read_excel(filename, index=1)
+df = pd.read_excel("001.xlsx", index=1)
+print(type(df))
+print()
+# df.to_html("data.html")
+html += "&lt;table class='rwd-table'&gt;"
+html2 = ""
+add = ""
+
+def header():
+	"Create the header of the column"
+	add = ""
+	for d in df:
+		add += f"&lt;th&gt;{d}&lt;/th&gt;"
+	add += "&lt;tr&gt;"
+	return add
+
+def content_of_table():
+	"This are the tds"
+	count = len(df)
+	add = ""
+	count = 0
+	for i in range(0, len(df)):
+		for d in df:
+			add += f"&lt;td&gt;{df[d][i]}&lt;/td&gt;"
+		add += "&lt;tr&gt;"
+
+	return add
+
+
+def main(html):
+	"Builds up the table with the functions made for it"
+	html += header()
+	html += content_of_table()
+
+	return html
+
+html = main(html)
+
+html += add
+html += "&lt;/table&gt;"
+print(html)
+
+with open("file.html", "w") as file:
+	file.write(html)
+os.startfile("file.html")
+</pre>
+The data were like this
+
+<a href="https://pythonprogramming.altervista.org/wp-content/uploads/2020/11/001.png"><img class="alignnone size-full wp-image-7745" src="https://pythonprogramming.altervista.org/wp-content/uploads/2020/11/001.png" alt="" width="505" height="328" /></a>
+
+The output is this
+
+<a href="https://pythonprogramming.altervista.org/wp-content/uploads/2020/11/output.png"><img class="alignnone size-full wp-image-7746" src="https://pythonprogramming.altervista.org/wp-content/uploads/2020/11/output.png" alt="" width="316" height="228" /></a>
