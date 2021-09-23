@@ -120,7 +120,7 @@ table.blueTable tfoot .links a{
 """
 
 # df = pd.read_excel(filename, index=1)
-df = pd.read_excel("001.xlsx")
+df = pd.read_excel("001.xlsx", engine='openpyxl')
 # df.to_html("001.html")
 html += "<table class='blueTable'>"
 # html += "<table>"
