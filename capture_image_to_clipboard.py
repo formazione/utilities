@@ -2,8 +2,6 @@
 
 import pyscreenshot as ImageGrab
 import os
-from pynput.mouse import Listener
-import sys
 from PIL import Image
 from io import BytesIO
 import win32clipboard
@@ -11,7 +9,20 @@ import pygame
 import win32api
 import win32con
 import win32gui
-import time
+import tkinter as tk
+
+
+def destroy():
+    root.destroy()
+
+root = tk.Tk()
+b = tk.Button(root, text="Click to Capture screen",
+    fg='red',
+    bg='yellow',
+    font="Arial 36",
+    command=root.destroy)
+b.pack()
+root.mainloop()
 
 from pygame import gfxdraw
 def send_to_clipboard(clip_type, data):
