@@ -24,7 +24,6 @@ b = tk.Button(root, text="Click to Capture screen",
 b.pack()
 root.mainloop()
 
-from pygame import gfxdraw
 def send_to_clipboard(clip_type, data):
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
