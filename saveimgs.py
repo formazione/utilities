@@ -10,6 +10,7 @@ import win32api
 import win32con
 import win32gui
 import tkinter as tk
+import time
 
 
 def destroy():
@@ -26,13 +27,15 @@ root.mainloop()
 
 
 def preview():
+    global count_image
     root = tk.Tk()
-    image = tk.PhotoImage(file="im.png")
+    image = tk.PhotoImage(file=f"{path}\\im{count_image}.png")
     b = tk.Label(root, image=image,
         fg='red',
         bg='yellow',
         font="Arial 36")
     b.pack()
+
     root.mainloop()
 
 
@@ -42,15 +45,26 @@ def send_to_clipboard(clip_type, data):
     win32clipboard.SetClipboardData(clip_type, data)
     win32clipboard.CloseClipboard()
 
+count_image = 0
+path = os.getcwd()
+print(path)
 def grab(x, y, w, h):
+    global count_image   
     im = ImageGrab.grab(bbox=(x, y, w, h))
-    im.save('im.png')
-    image = Image.open("im.png")
-    output = BytesIO()
-    image.convert("RGB").save(output, "BMP")
-    data = output.getvalue()[14:]
-    output.close()
-    send_to_clipboard(win32clipboard.CF_DIB, data)
+    if count_image < 10:
+        count_image = "0" + str(count_image)
+    else:
+        count_image = str(count_image)
+
+    im.save(f'{path}\\im{count_image}.png')
+    image = Image.open(f'{path}\\im{count_image}.png')
+    image.save(f'{path}\\im{count_image}.png')
+    # output = BytesIO()
+    # image.convert("RGB").save(output, "BMP")
+    # data = output.getvalue()[14:]
+    # output.close()
+
+    # send_to_clipboard(win32clipboard.CF_DIB, data)
 
 pygame.init()
 info = pygame.display.Info()
@@ -68,6 +82,18 @@ win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE,
 # win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_COLORKEY)
 win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 50, win32con.LWA_ALPHA)
 
+font = pygame.font.SysFont("Arial", 72)
+text = []
+# add a font.render and the position where to blit
+t1 = font.render("Screen captured", 0, (200, 200, 0))
+wid = t1.get_rect()
+t1_pos = (w // 2, h // 2)
+text.append([t1, t1_pos])
+
+def show_text():
+    for t in text:
+        screen.blit(t[0], t[1])
+
 click1 = 0
 x1 = 0
 y1 = 0
@@ -82,27 +108,32 @@ while not done:
                 done = True
 
         if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
             # time.sleep(.1)
-            if click1 == 0:
-                x1, y1 = pygame.mouse.get_pos()
-                click1 = 1
-            elif click1 == 1:
-                x2, y2 = pygame.mouse.get_pos()
-                dx = x1 + (x2 - x1)
-                dy = y1 + (y2 - y1)
-                win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_ALPHA)
-                grab(x1, y1, dx, dy)
-                click1 = 0
-                # Sh
-                # done = True
-                win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 50, win32con.LWA_ALPHA)
-                x1 = 0
-                y1 = 0
-                x2 = 0
-                y2 = 0
-                preview()
+                if click1 == 0:
+                    x1, y1 = pygame.mouse.get_pos()
+                    click1 = 1
+                elif click1 == 1:
+                    x2, y2 = pygame.mouse.get_pos()
+                    dx = x1 + (x2 - x1)
+                    dy = y1 + (y2 - y1)
+       
+                    win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_ALPHA)
+                    grab(x1, y1, dx, dy)
+                    click1 = 0
+                    # Sh
+                    # done = True
+                    win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 50, win32con.LWA_ALPHA)
+                    x1 = 0
+                    y1 = 0
+                    x2 = 0
+                    y2 = 0
+                    #preview()
+                    count_image = int(count_image)
+                    count_image += 1
 
     screen.fill((255, 255, 255))  # Transparent background
+    show_text()
     # show_text()
     if click1 == 0:
         mx, my = pygame.mouse.get_pos()
