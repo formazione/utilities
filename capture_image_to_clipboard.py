@@ -47,7 +47,6 @@ h = info.current_h
 screen = pygame.display.set_mode((w, h), pygame.NOFRAME) # For borderless, use pygame.NOFRAME
 done = False
 fuchsia = (255, 0, 128)  # Transparency color
-dark_red = (255, 0, 0)
 
 # Create layered window
 hwnd = pygame.display.get_wm_info()["window"]
@@ -56,15 +55,7 @@ win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE,
 # Set window transparency color
 # win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_COLORKEY)
 win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 50, win32con.LWA_ALPHA)
-font = pygame.font.SysFont("Arial", 72)
-text = []
-text.append((font.render("Click on top left of the part you want to grab", 0, dark_red), (0, 10)))
-text.append((font.render("Press Esc to close the window", 0, dark_red), (0, 100)))
-def show_text():
-    for t in text:
-        screen.blit(t[0], t[1])
 
-click = 0
 click1 = 0
 x1 = 0
 y1 = 0
@@ -77,22 +68,26 @@ while not done:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 done = True
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             # time.sleep(.1)
             if click1 == 0:
                 x1, y1 = pygame.mouse.get_pos()
-                
                 click1 = 1
             elif click1 == 1:
                 x2, y2 = pygame.mouse.get_pos()
                 dx = x1 + (x2 - x1)
                 dy = y1 + (y2 - y1)
-                print(x1, y1, dx, dy)
                 win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 0, win32con.LWA_ALPHA)
                 grab(x1, y1, dx, dy)
                 click1 = 0
-                done = True
-
+                # Sh
+                # done = True
+                win32gui.SetLayeredWindowAttributes(hwnd, win32api.RGB(*fuchsia), 50, win32con.LWA_ALPHA)
+                x1 = 0
+                y1 = 0
+                x2 = 0
+                y2 = 0
     screen.fill((255, 255, 255))  # Transparent background
     # show_text()
     if click1 == 0:
