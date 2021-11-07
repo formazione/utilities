@@ -15,4 +15,6 @@ List of utilities
 
 - capture_images_to_clipoboard - it is quite self-explanatory
 
+- presentation.py - browse images in the folder
+
 https://pythonprogramming.altervista.org
