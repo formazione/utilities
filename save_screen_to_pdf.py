@@ -58,12 +58,6 @@ def grab(x, y, w, h):
     im.save(f'{path}\\im{count_image}.png')
     image = Image.open(f'{path}\\im{count_image}.png')
     image.save(f'{path}\\im{count_image}.png')
-    # output = BytesIO()
-    # image.convert("RGB").save(output, "BMP")
-    # data = output.getvalue()[14:]
-    # output.close()
-
-    # send_to_clipboard(win32clipboard.CF_DIB, data)
 
 pygame.init()
 info = pygame.display.Info()
@@ -137,9 +131,6 @@ pygame.quit()
 
 # ============= create pdf =========
 
-
-
-
 files = glob("G:/saved_by_save/*.png")
 # rgb.save(PDF_FILE, 'PDF', resoultion=100.0)
 for f in files:
@@ -151,18 +142,12 @@ for f in files:
 
 files = glob("G:/saved_by_save/*.png")
 print(files)
-# # rgba = Image.open(PNG_FILE)
-# # To avoid ValueError: cannot save mode RGBA 
-# rgba = Image.open(glob("*.png")[0])
-# rgb = Image.new('RGB', rgba.size, (255, 255, 255))  # white background
-# rgb.paste(rgba, mask=rgba.split()[3])               # paste using alpha channel as mask
+
 
 iml = []
 print(f"{files=}")
 for img in files:
     imgs = Image.open(img)
-    # rgb2 = Image.new('RGB', rgba2.size, (255, 255, 255))  # white background
-    # rgb2.paste(rgba2, mask=rgba2.split()[3])               # paste using alpha channel as mask
     iml.append(imgs)
 pdf = "G:\\saved_by_save\\ALL.pdf"
 print(iml)
