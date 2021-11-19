@@ -20,3 +20,6 @@ List of utilities
 - png.py - Joins all png files into one pdf file
 
 https://pythonprogramming.altervista.org
+
+https://github.com/formazione/utilities
+
