@@ -17,7 +17,8 @@ List of utilities
 
 - presentation.py - browse images in the folder
 
-- png.py - Joins all png files into one pdf file 
+- png.py - Joins all png files into one pdf file
+
 https://pythonprogramming.altervista.org/how-to-save-all-png-to-pdf-with-just-python-and-pil/
 
 
