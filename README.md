@@ -17,4 +17,6 @@ List of utilities
 
 - presentation.py - browse images in the folder
 
+- png.py - Joins all png files into one pdf file
+
 https://pythonprogramming.altervista.org
