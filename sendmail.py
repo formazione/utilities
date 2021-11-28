@@ -39,5 +39,4 @@ if __name__ == '__main__':
 	server.login(mmail, password)
 	server.sendmail(mmail, [hmail], text)
 	server.quit()
-	
 
