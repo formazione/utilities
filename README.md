@@ -24,6 +24,8 @@ https://pythonprogramming.altervista.org/how-to-save-all-png-to-pdf-with-just-py
 https://pythonprogramming.altervista.org/how-to-get-text-from-mp4-and-wav-with-python/
 
 
+- pyjsquiz.py   creates a test/quiz with python converting to html easily
+
 # My blog
 
 https://pythonprogramming.altervista.org
