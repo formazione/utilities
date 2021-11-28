@@ -4,12 +4,12 @@ import os
 
 
 
-alt1 = """red, rosso
-yellow, giallo
-green, verde
-white, bianco
-black, nero
-orange, arancione"""
+alt1 = """art.1, L'Italia è una Repubblica democratica...
+art.2, La Repubblica riconosce e garantisce i diritti inviolabili dell’uomo
+art.3, Tutti i cittadini hanno pari dignita` sociale
+art.4, La Repubblica riconosce a tutti i cittadini il diritto al lavoro
+art.5, La Repubblica - una e indivisibile - riconosce e promuove le autonomie locali
+art.6, La Repubblica tutela ... le minoranze linguistiche"""
 
 alt1 = alt1.splitlines()
 qnum = len(alt1)
@@ -31,7 +31,7 @@ for n in range(qnum):
 	answers.pop(pos)
 	shuffle(answers)
 	a2, a3, a4 = sample(answers, 3)
-	qq = f"What is the italian word for {questions[n]}?"
+	qq = f"Come inizia l'{questions[n]}?"
 	x = [a1, a2, a3, a4]
 	shuffle(x)
 	right = x.index(a1)
