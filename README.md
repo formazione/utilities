@@ -25,7 +25,7 @@ https://pythonprogramming.altervista.org/how-to-get-text-from-mp4-and-wav-with-p
 
 
 - pyjsquiz.py   creates a test/quiz with python converting to html easily
-
+- pyjsquiztf.py creates true false quiz
 # My blog
 
 https://pythonprogramming.altervista.org

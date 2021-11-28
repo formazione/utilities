@@ -129,6 +129,6 @@ for ss in sol:
     counter += 1
 print("----")
 
-with open("mc.html", "w") as file:
+with open("mctf.html", "w") as file:
     file.write(text)
-os.startfile("mc.html")
+os.startfile("mctf.html")
